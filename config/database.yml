@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: imagery-api_production
-  username: imagery-api
-  password: <%= ENV['IMAGERY-API_DATABASE_PASSWORD'] %>
+  username: pbpvjvxwjdpdxe
+  password: 22f334653abdcedee370bc9f7430f42677f4eb6906eed661d744c1d3f952f9c6

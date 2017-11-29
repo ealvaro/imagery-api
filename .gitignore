@@ -12,6 +12,9 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-
+# Ignore database setup
+/config/database.yml
+# Ignore rvm setup files
+.ruby-*
 # Ignore Byebug command history file.
 .byebug_history
