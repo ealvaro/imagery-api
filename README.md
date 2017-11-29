@@ -30,5 +30,7 @@ git add --all
 git commit -m "Initial Commit"
 git remote add origin git@github.com:ealvaro/imagery-api.git
 rails g model Tag name:string
+vim db/seeds
+bundle exec rake db:create db:migrate db:seed
 rails g model Image name:string width:integer height:integer url:string tag:references
 ```
