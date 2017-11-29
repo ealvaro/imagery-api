@@ -1,24 +1,34 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Requirements ###
 
-Things you may want to cover:
+Create a web API that clients can use to query images by one or more tags.
 
-* Ruby version
+### Expected Input ###
 
-* System dependencies
+Max number of images in the results.
+Image keywords to match image tags (as comma-separated-values, i.e. “blue, flowers, desert”)
 
-* Configuration
+### Expected Output ###
 
-* Database creation
+Total number of results
+Image URL
+Image Width
+Image Height
 
-* Database initialization
+The output should be in JSON format.
 
-* How to run the test suite
+### Initial Steps taken to start the project ###
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```shell
+rvm use 2.4.0
+rvm gemset use default
+rails new imagery-api --api -d postgresql
+cd imagery-api
+git init
+git add --all
+git commit -m "Initial Commit"
+git remote add origin git@github.com:ealvaro/imagery-api.git
+rails g model Tag name:string
+rails g model Image name:string width:integer height:integer url:string tag:references
+```
