@@ -38,20 +38,46 @@ rails g migration CreateJoinTableImageTag image tag
 
 ```
 
-### Heroku related steps ###
+### Some Linux `curl` Sample Calls to the API ### (These are the only ones tested)
 
+You can use
 ```shell
-wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
-heroku run -a imagery-api -- rake db:migrate db:seed
+http://localhost:3000
 ```
+if testing locally or you can use
+```shell
+https://imagery-api.herokuapp.com
+```
+if testing on the WWW
 
-### Some Sample Calls to the API ### (These are the only ones tested)
+##### GET all Tags ####
 
 ```shell
 curl -i -X GET http://localhost:3000/tags -H "Content-Type: application/json" -H "Accept: application/json"
-curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"name":"pool"}' http://localhost:3000/tags
-curl -i -X GET http://localhost:3000/images -H "Content-Type: application/json" -H "Accept: application/json"
-curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"image":{"name":"Pic999","width":100,"height":100,"url":"https://unsplash.com/photos/3Vr4qQvQn34","tags":[{"name":"fruit"},{"name":"beach"}]}}' http://localhost:3000/images
-curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"image":{"name":"Pic999","width":100,"height":100,"url":"https://unsplash.com/photos/4_RwGQCveHQ","tags":[{"name":"woman"},{"name":"beach"}]}}' http://localhost:3000/images
-curl -i -X POST http://localhost:3000/images/search -H "Content-Type: application/json" -H "Accept: application/json" -d '{"search_str": "woman,beach"}
 ```
+
+##### POST new Tag ####
+
+```shell
+curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"name":"pool"}' http://localhost:3000/tags
+```
+##### GET all Images ####
+
+```shell
+curl -i -X GET http://localhost:3000/images -H "Content-Type: application/json" -H "Accept: application/json"
+```
+##### POST new Images ####
+
+```shell
+curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"image":{"name":"Pic999","width":100,"height":100,"url":"https://unsplash.com/photos/3Vr4qQvQn34","tags":[{"name":"fruit"},{"name":"beach"}]}}' http://localhost:3000/images
+curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"image":{"name":"Pic998","width":100,"height":100,"url":"https://unsplash.com/photos/4_RwGQCveHQ","tags":[{"name":"woman"},{"name":"beach"}]}}' http://localhost:3000/images
+```
+##### POST query Images by Tags & count ####
+
+```shell
+curl -i -X POST http://localhost:3000/images/search -H "Content-Type: application/json" -H "Accept: application/json" -d '{"search_str": "woman,beach","max_results": 10}'
+```
+
+### TODO ###
+
+Working on creating a second webapp that would provide query interface to this API and present results in a nice HTML format.
