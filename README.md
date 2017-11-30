@@ -53,4 +53,5 @@ curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json
 curl -i -X GET http://localhost:3000/images -H "Content-Type: application/json" -H "Accept: application/json"
 curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"image":{"name":"Pic999","width":100,"height":100,"url":"https://unsplash.com/photos/3Vr4qQvQn34","tags":[{"name":"fruit"},{"name":"beach"}]}}' http://localhost:3000/images
 curl -i -X POST -H "Content-Type: application/json" -H "Accept: application/json" -d '{"image":{"name":"Pic999","width":100,"height":100,"url":"https://unsplash.com/photos/4_RwGQCveHQ","tags":[{"name":"woman"},{"name":"beach"}]}}' http://localhost:3000/images
+curl -i -X POST http://localhost:3000/images/search -H "Content-Type: application/json" -H "Accept: application/json" -d '{"search_str": "woman,beach"}
 ```

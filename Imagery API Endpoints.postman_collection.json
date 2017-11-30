@@ -1,0 +1,170 @@
+{
+	"info": {
+		"name": "Imagery API Endpoints",
+		"_postman_id": "e689d702-f98c-0ec1-d811-e553b3aaaaa8",
+		"description": "Imagery API Endpoints tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Tags",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/tags",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tags"
+					]
+				},
+				"description": "GET All Tags"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Tag",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"pool\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/tags",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tags"
+					]
+				},
+				"description": "POST One Tag"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Images",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/images",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"images"
+					]
+				},
+				"description": "GET All Images"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Image",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"image\":\n\t{\n\t\t\"name\":\"Pic999\",\n\t\t\"width\":100,\n\t\t\"height\":100,\n\t\t\"url\":\"https://unsplash.com/photos/4_RwGQCveHQ\",\n\t\t\"tags\":\n\t\t[\n\t\t\t{\"name\":\"woman\"},\n\t\t\t{\"name\":\"beach\"}\n\t\t]\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/images",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"images"
+					]
+				},
+				"description": "POST an Image"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Search Image",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"search_str\": \"woman,beach\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/images/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"images",
+						"search"
+					]
+				},
+				"description": "POST Search Image by its Tags"
+			},
+			"response": []
+		}
+	]
+}

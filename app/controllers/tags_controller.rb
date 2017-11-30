@@ -1,11 +1,13 @@
 class TagsController < ApplicationController
+  include EndpointHeader
   before_action :set_tag, only: [:show, :update, :destroy]
 
   # GET /tags
   def index
     @tags = Tag.all
 
-    render json: @tags
+    tags_serialized = ActiveModel::Serializer::CollectionSerializer.new(@tags, each_serializer: TagSerializer)
+    render json: add_header(tags_serialized),  root: false
   end
 
   # GET /tags/1

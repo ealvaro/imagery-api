@@ -1,4 +1,5 @@
 class ImagesController < ApplicationController
+  include EndpointHeader
   before_action :set_image, only: [:show, :update, :destroy]
 
   # POST /search
@@ -6,15 +7,15 @@ class ImagesController < ApplicationController
     render nothing:true, status:422 and return if params[:search_str].empty? || (params[:max_results] && too_many_results?(params[:search_str], params[:max_results].to_i))
     results = query_by_str(params[:search_str])
     images = results.map { |t| t.images}
-    img_serializer = ActiveModel::Serializer::CollectionSerializer.new(images, each_serializer: ImageSerializer)
-    render json: { title: "Imagery", version: "1.0", results: img_serializer },  root: false
+    imgs_serialized = ActiveModel::Serializer::CollectionSerializer.new(images, each_serializer: ImageSerializer)
+    render json: add_header(imgs_serialized),  root: false
   end
 
   # GET /images
   def index
     @images = Image.all
     img_serializer = ActiveModel::Serializer::CollectionSerializer.new(@images, each_serializer: ImageSerializer)
-    render json: { title: "Imagery", version: "1.0", results: img_serializer },  root: false
+    render json: add_header(img_serializer),  root: false
   end
 
   # GET /images/1
