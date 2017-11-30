@@ -6,15 +6,15 @@ Create a web API that clients can use to query images by one or more tags.
 
 ### Expected Input ###
 
-Max number of images in the results.
-Image keywords to match image tags (as comma-separated-values, i.e. “blue, flowers, desert”)
+- Max number of images in the results.
+- Image keywords to match image tags (as comma-separated-values, i.e. “blue, flowers, desert”)
 
 ### Expected Output ###
 
-Total number of results
-Image URL
-Image Width
-Image Height
+- Total number of results
+- Image URL
+- Image Width
+- Image Height
 
 The output should be in JSON format.
 

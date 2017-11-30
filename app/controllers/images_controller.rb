@@ -4,8 +4,8 @@ class ImagesController < ApplicationController
   # GET /images
   def index
     @images = Image.all
-
-    render json: @images
+    img_serializer = ActiveModel::Serializer::CollectionSerializer.new(@images, each_serializer: ImageSerializer)
+    render json: { title: "Imagery", version: "1.0", results: img_serializer },  root: false
   end
 
   # GET /images/1
