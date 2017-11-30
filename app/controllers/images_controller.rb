@@ -1,6 +1,15 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :update, :destroy]
 
+  # POST /search
+  def search
+    render nothing:true, status:422 and return if params[:search_str].empty? || (params[:max_results] && too_many_results?(params[:search_str], params[:max_results].to_i))
+    results = query_by_str(params[:search_str])
+    images = results.map { |t| t.images}
+    img_serializer = ActiveModel::Serializer::CollectionSerializer.new(images, each_serializer: ImageSerializer)
+    render json: { title: "Imagery", version: "1.0", results: img_serializer },  root: false
+  end
+
   # GET /images
   def index
     @images = Image.all
@@ -15,7 +24,10 @@ class ImagesController < ApplicationController
 
   # POST /images
   def create
-    @image = Image.new(image_params)
+    post_attributes = image_params
+    tag_attributes = post_attributes.delete("tags")
+    @image = Image.new(post_attributes)
+    @image.tags = tag_attributes.map{|t| Tag.find_by(name: t["name"]) || Tag.new(name: t["name"])}
 
     if @image.save
       render json: @image, status: :created, location: @image
@@ -46,6 +58,16 @@ class ImagesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def image_params
-      params.require(:image).permit(:name, :width, :height, :url)
+      params.require(:image).permit(:name, :width, :height, :url, {:tags => [:name]})
     end
+
+    def too_many_results?(search,max)
+        return false
+    end
+
+    def query_by_str(search)
+      arr = search.split(',')
+      arr.map { |str| Tag.find_by(name: str)}
+    end
+
 end
