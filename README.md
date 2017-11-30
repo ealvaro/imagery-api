@@ -6,8 +6,8 @@ Create a web API that clients can use to query images by one or more tags.
 
 ### Expected Input ###
 
-- Max number of images in the results.
-- Image keywords to match image tags (as comma-separated-values, i.e. “blue, flowers, desert”)
+- Max number of images in the results. (mandatory)
+- Image keywords to match image tags.  (mandatory) (format as comma-separated-values, i.e. “blue, flowers, desert”)
 
 ### Expected Output ###
 
@@ -45,7 +45,7 @@ wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
 heroku run -a imagery-api -- rake db:migrate db:seed
 ```
 
-### Some Sample Calls to the API ###
+### Some Sample Calls to the API ### (These are the only ones tested)
 
 ```shell
 curl -i -X GET http://localhost:3000/tags -H "Content-Type: application/json" -H "Accept: application/json"

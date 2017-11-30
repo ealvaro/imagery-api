@@ -4,9 +4,10 @@ class ImagesController < ApplicationController
 
   # POST /search
   def search
-    render nothing:true, status:422 and return if params[:search_str].empty? || (params[:max_results] && too_many_results?(params[:search_str], params[:max_results].to_i))
+    render nothing:true, status:422 and return if params[:search_str].nil? || params[:max_results].nil?
     results = query_by_str(params[:search_str])
-    images = results.map { |t| t.images}
+    images = results.map { |t| t.images}.flatten.uniq
+    render nothing:true, status:422 and return if params[:max_results].to_i < images.size
     imgs_serialized = ActiveModel::Serializer::CollectionSerializer.new(images, each_serializer: ImageSerializer)
     render json: add_header(imgs_serialized),  root: false
   end
@@ -62,13 +63,10 @@ class ImagesController < ApplicationController
       params.require(:image).permit(:name, :width, :height, :url, {:tags => [:name]})
     end
 
-    def too_many_results?(search,max)
-        return false
-    end
-
     def query_by_str(search)
       arr = search.split(',')
-      arr.map { |str| Tag.find_by(name: str)}
+      all_tags = arr.map { |str| Tag.find_by(name: str)}
+      all_tags.uniq
     end
 
 end

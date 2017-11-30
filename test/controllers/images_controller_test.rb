@@ -5,6 +5,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     @image = images(:one)
     @tag1 = tags(:one)
     @tag2 = tags(:two)
+    @image.tags << @tag1
+    @image.tags << @tag2
   end
 
   test "should get index" do
@@ -39,8 +41,23 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should search for images" do
-    post '/images/search', params: { search_str: @tag1.name }, as: :json
+    post '/images/search', params: { search_str: "#{@tag1.name},#{@tag2.name}", max_results: 5 }, as: :json
     assert_response 200
+  end
+
+  test "invalid search missing mandatory search_str" do
+    post '/images/search', params: { max_results: 5 }, as: :json
+    assert_response 422
+  end
+
+  test "invalid search missing mandatory max_results" do
+    post '/images/search', params: { search_str: @tag1.name }, as: :json
+    assert_response 422
+  end
+
+  test "max results in search exceeded" do
+    post '/images/search', params: { search_str: "#{@tag1.name},#{@tag2.name}", max_results: 0 }, as: :json
+    assert_response 422
   end
 
 end
