@@ -65,7 +65,7 @@ class ImagesController < ApplicationController
 
     def query_by_str(search)
       arr = search.split(',')
-      all_tags = arr.map { |str| Tag.find_by(name: str)}
+      all_tags = Tag.where(name: arr)
       all_tags.uniq
     end
 
